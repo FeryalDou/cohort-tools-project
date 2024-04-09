@@ -25,12 +25,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(
   cors({
-    origin: ["htpp://localhost:5173"],
+    origins: ["htpp://localhost:5173", "htpp://localhost:5174"],
   })
 );
 
 // ROUTES - https://expressjs.com/en/starter/basic-routing.html
+
+app.use("/", require("./route/index.routes"));
 // Devs Team - Start working on the routes here:
+
 // ...
 app.get("/docs", (req, res, next) => {
   res.sendFile(__dirname + "/views/docs.html");
