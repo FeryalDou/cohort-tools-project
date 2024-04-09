@@ -41,7 +41,7 @@ app.use(
 
 // ROUTES - https://expressjs.com/en/starter/basic-routing.html
 
-app.use("/", require("./route/index.routes"));
+app.use("/", require("./routes/index.routes"));
 // Devs Team - Start working on the routes here:
 
 // ...
