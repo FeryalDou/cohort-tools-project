@@ -5,13 +5,43 @@ const Schema = mongoose.Schema;
 
 // describe structure of the document
 const studentSchema = new Schema({
-  firstName: String,
-  lastName: String,
-  email: String,
-  phone: String,
-  linkedinUrl: String,
-  language: [String],
-  program: String,
+  firstName: {
+    type: String,
+    required: true,
+  },
+  lastName: {
+    tupe: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  phone: {
+    type: String,
+    required: true,
+  },
+  linkedinUrl: {
+    type: String,
+    default: "",
+  },
+  language: {
+    type: String,
+    enum: [
+      "English",
+      "Spanish",
+      "French",
+      "German",
+      "Portuguese",
+      "Dutch",
+      "other",
+    ],
+  },
+  program: {
+    type: String,
+    enum: ["Web Dev", "UX/UI", "Data Analytics", "Cybersecurity"],
+  },
   background: String,
   image: String,
   projects: Array,
