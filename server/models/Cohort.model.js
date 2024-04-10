@@ -11,8 +11,8 @@ const cohortSchema = new Schema({
     type: Boolean,
     default: false,
   },
-  cohortSlug: { type: String, require: true },
-  cohortName: { type: String, require: true },
+  cohortSlug: { type: String, required: true },
+  cohortName: { type: String, required: true },
   program: {
     type: String,
     enum: ["Web Dev", "UX/UI", "Data Analytics", "Cybersecurity"],

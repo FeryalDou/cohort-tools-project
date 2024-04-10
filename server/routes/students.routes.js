@@ -33,15 +33,50 @@ router.get("/", async (req, res) => {
       limit = Number(req.query.limit);
     }
 
-    const allStudent = await Student.find({}).limit(limit).skip(skip);
-    res.json({
-      results: allStudent,
-    });
+    const allStudents = await Student.find({}).limit(limit).skip(skip);
+    res.status(200).json(allStudents);
   } catch (error) {
     console.log(error);
     res.status(500).send("Error during GET/api/students");
   }
 });
+
+router.post("/", async (req, res, next) => {
+  try {
+    const {
+      firstName,
+      lastName,
+      email,
+      phone,
+      linkedinUrl,
+      languages,
+      program,
+      background,
+      image,
+      cohort,
+      projects,
+    } = req.body;
+    const studToCreate = {
+      firstName,
+      lastName,
+      email,
+      phone,
+      linkedinUrl,
+      languages,
+      program,
+      background,
+      image,
+      cohort,
+      projects,
+    };
+    const createdStudent = await Student.create(studToCreate);
+    res.status(201).json(createdStudent);
+  } catch (error) {
+    res.status(500).send("Error creating new student");
+  }
+});
+
+// Retrieves a specific student by ID
 
 router.get("/:studentId", (req, res, next) => {
   // const id = Number(req.params.studentId);
@@ -55,4 +90,28 @@ router.get("/:studentId", (req, res, next) => {
     });
 });
 
+// Updates a specific student by id
+
+router.put("/:studentId", (req, res, next) => {
+  // const id = Number(req.params.studentId);
+  Student.findById(req.params.studentId)
+    .then((oneStudent) => {
+      res.json(oneStudent);
+    })
+    .catch((err) => {
+      console.error("error while retreiving students", err);
+      res.json({ error: "error on the backend, see console" });
+    });
+});
+
+// retrieves all of the students for a given cohort
+
+router.get("/cohort/:cohortId", async (req, res, next) => {
+  try {
+    const cohortStudents = await Student.find({ cohort: req.params.cohortId });
+    res.status(200).json(cohortStudents);
+  } catch (error) {
+    res.status(500).json({ error: "error on the backend, see console" });
+  }
+});
 module.exports = router;

@@ -13,7 +13,7 @@ const studentSchema = new Schema(
       required: true,
     },
     lastName: {
-      tupe: String,
+      type: String,
       required: true,
     },
     email: {
@@ -29,7 +29,7 @@ const studentSchema = new Schema(
       type: String,
       default: "",
     },
-    language: {
+    languages: {
       type: String,
       enum: [
         "English",
@@ -38,7 +38,7 @@ const studentSchema = new Schema(
         "German",
         "Portuguese",
         "Dutch",
-        "other",
+        "Other",
       ],
     },
     program: {
@@ -53,11 +53,11 @@ const studentSchema = new Schema(
       type: String,
       default: "",
     },
+    cohort: Schema.Types.ObjectId,
     projects: [],
-    cohort: Number,
   },
   {
-    timetamps: true,
+    timestamps: true,
   }
 );
 
