@@ -92,16 +92,29 @@ router.get("/:studentId", (req, res, next) => {
 
 // Updates a specific student by id
 
-router.put("/:studentId", (req, res, next) => {
-  // const id = Number(req.params.studentId);
-  Student.findById(req.params.studentId)
-    .then((oneStudent) => {
-      res.json(oneStudent);
-    })
-    .catch((err) => {
-      console.error("error while retreiving students", err);
-      res.json({ error: "error on the backend, see console" });
-    });
+router.put("/:studentId", async (req, res, next) => {
+  try {
+    const newStudent = req.body;
+    const updatedStudent = await Student.findOneAndUpdate(
+      req.params.studentId,
+      newStudent,
+      { new: true }
+    );
+    res.status(200).json(updatedStudent);
+  } catch (error) {
+    res.status(500).json({ message: "error" });
+  }
+});
+
+// Deletes a specific student by Id
+
+router.delete("/:studentId", async (req, res, next) => {
+  try {
+    const updatedStudent = await Student.findOneAndDelete(req.params.studentId);
+    res.status(204);
+  } catch (error) {
+    res.status(500).json({ message: "error" });
+  }
 });
 
 // retrieves all of the students for a given cohort
