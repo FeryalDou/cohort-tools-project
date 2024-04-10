@@ -1,7 +1,7 @@
 //const mongoose = require("mongoose");
 //const Schema = mongoose.Schema;
 
-const { Cohort, model } = require("mongoose");
+const { Schema, model } = require("mongoose");
 
 // create Schema
 
@@ -51,7 +51,7 @@ const cohortSchema = new Schema({
 });
 
 // create the model
-const Cohort = mongoose.model("Cohort", cohortSchema);
+const Cohort = model("Cohort", cohortSchema);
 
 // Export the student model
 module.exports = Cohort;

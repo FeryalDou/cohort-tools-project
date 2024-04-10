@@ -43,33 +43,19 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res, next) => {
   try {
-    const {
-      firstName,
-      lastName,
-      email,
-      phone,
-      linkedinUrl,
-      languages,
-      program,
-      background,
-      image,
-      cohort,
-      projects,
-    } = req.body;
-    const studToCreate = {
-      firstName,
-      lastName,
-      email,
-      phone,
-      linkedinUrl,
-      languages,
-      program,
-      background,
-      image,
-      cohort,
-      projects,
-    };
-    const createdStudent = await Student.create(studToCreate);
+    const createdStudent = await Student.create({
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      email: req.body.email,
+      phone: req.body.phone,
+      linkedinUrl: req.body.linkedinUrl,
+      languages: req.body.languages,
+      program: req.body.program,
+      background: req.body.background,
+      image: req.body.image,
+      cohort: req.body.cohort,
+      projects: req.body.projects,
+    });
     res.status(201).json(createdStudent);
   } catch (error) {
     res.status(500).send("Error creating new student");
@@ -111,7 +97,7 @@ router.put("/:studentId", async (req, res, next) => {
 router.delete("/:studentId", async (req, res, next) => {
   try {
     const updatedStudent = await Student.findOneAndDelete(req.params.studentId);
-    res.status(204);
+    res.status(204).send();
   } catch (error) {
     res.status(500).json({ message: "error" });
   }

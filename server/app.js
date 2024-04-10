@@ -10,8 +10,7 @@ const PORT = process.env.PORT;
 console.log(process.env.MONGODB_URI);
 console.log(process.env.SECRET);
 
-const URI =
-  process.env.MONGODB_URI || "mongodb://localhost/cohort-tools-project";
+const URI = process.env.MONGODB_URI || "mongodb://localhost/cohort-tools-api";
 
 mongoose
   .connect(URI)
@@ -24,9 +23,6 @@ mongoose
 // STATIC DATA
 // Devs Team - Import the provided files with JSON data of students and cohorts here:
 // ...
-
-const students = require("./students.json");
-const cohorts = require("./cohorts.json");
 
 // INITIALIZE EXPRESS APP - https://expressjs.com/en/4x/api.html#express
 const app = express();

@@ -1,6 +1,5 @@
 const router = require("express").Router();
-const cohorts = require("./../cohorts.json");
-const Cohort = require("../models/Student.model");
+const Cohort = require("./../models/Cohort.model");
 
 //all the routes are prefixed with /api/cohorts
 
