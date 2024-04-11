@@ -43,19 +43,7 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res, next) => {
   try {
-    const createdStudent = await Student.create({
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      email: req.body.email,
-      phone: req.body.phone,
-      linkedinUrl: req.body.linkedinUrl,
-      languages: req.body.languages,
-      program: req.body.program,
-      background: req.body.background,
-      image: req.body.image,
-      cohort: req.body.cohort,
-      projects: req.body.projects,
-    });
+    const createdStudent = await Student.create(req.body);
     res.status(201).json(createdStudent);
   } catch (error) {
     res.status(500).send("Error creating new student");
