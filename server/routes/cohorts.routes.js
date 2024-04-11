@@ -56,19 +56,22 @@ router.get("/:cohortId", (req, res, next) => {
 
 router.post("/", async (req, res, next) => {
   try {
-    const createdCohort = await Cohort.create({
-      inProgress: req.inProgress,
-      cohortSlug: req.cohortSlug,
-      cohortName: req.cohortName,
-      program: req.program,
-      campus: req.campus,
-      startDate: req.startDate,
-      endDate: req.endDate,
-      leadTeacher: req.leadTeacher,
-      totalHours: req.totalHours,
-    });
+    console.log("Request Body:", req.body);
+    const createdCohort = await Cohort.create(
+      req.body
+      // inProgress: req.inProgress,
+      // cohortSlug: req.cohortSlug,
+      // cohortName: req.cohortName,
+      // program: req.program,
+      // campus: req.campus,
+      // startDate: req.startDate,
+      // endDate: req.endDate,
+      // leadTeacher: req.leadTeacher,
+      // totalHours: req.totalHours,
+    );
     res.status(201).json(createdCohort);
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error: "error on the backend, see console" });
   }
 });

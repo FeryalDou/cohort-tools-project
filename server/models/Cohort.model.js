@@ -21,7 +21,7 @@ const cohortSchema = new Schema({
   campus: {
     type: String,
     enum: [
-      "paris",
+      "Paris",
       "Barcelona",
       "Lisbon",
       "Madrid",
