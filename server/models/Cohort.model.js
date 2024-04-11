@@ -7,6 +7,7 @@ const { Schema, model } = require("mongoose");
 
 // describe structure of the document
 const cohortSchema = new Schema({
+  id: Schema.Types.ObjectId,
   inProgress: {
     type: Boolean,
     default: false,

@@ -35,9 +35,7 @@ router.get("/", async (req, res) => {
     }
 
     const allCohorts = await Cohort.find({}).limit(limit).skip(skip);
-    res.json({
-      results: allCohorts,
-    });
+    res.json(allCohorts);
   } catch (error) {
     console.log(error);
     res.status(500).send("Error during GET/api/cohorts");
@@ -54,6 +52,25 @@ router.get("/:cohortId", (req, res, next) => {
       console.error("error while retreiving cohorts", err);
       res.json({ error: "error on the backend, see console" });
     });
+});
+
+router.post("/", async (req, res, next) => {
+  try {
+    const createdCohort = await Cohort.create({
+      inProgress: req.inProgress,
+      cohortSlug: req.cohortSlug,
+      cohortName: req.cohortName,
+      program: req.program,
+      campus: req.campus,
+      startDate: req.startDate,
+      endDate: req.endDate,
+      leadTeacher: req.leadTeacher,
+      totalHours: req.totalHours,
+    });
+    res.status(201).json(createdCohort);
+  } catch (error) {
+    res.status(500).json({ error: "error on the backend, see console" });
+  }
 });
 
 module.exports = router;
