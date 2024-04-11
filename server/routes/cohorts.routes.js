@@ -26,7 +26,13 @@ router.get("/", async (req, res) => {
     console.log(req.query);
     let skip = 0;
     let limit = 2;
-
+    let search = {};
+    if (req.query.campus) {
+      search.campus = req.query.campus;
+    }
+    if (req.query.program) {
+      search.program = req.query.program;
+    }
     if (req.query.skip !== undefined) {
       skip = Number(req.query.skip);
     }
@@ -34,11 +40,10 @@ router.get("/", async (req, res) => {
       limit = Number(req.query.limit);
     }
 
-    const allCohorts = await Cohort.find({}).limit(limit).skip(skip);
+    const allCohorts = await Cohort.find(search).limit(limit).skip(skip);
     res.json(allCohorts);
   } catch (error) {
-    console.log(error);
-    res.status(500).send("Error during GET/api/cohorts");
+    next(error);
   }
 });
 
@@ -48,9 +53,9 @@ router.get("/:cohortId", (req, res, next) => {
     .then((oneCohort) => {
       res.json(oneCohort);
     })
+
     .catch((err) => {
-      console.error("error while retreiving cohorts", err);
-      res.json({ error: "error on the backend, see console" });
+      next(error);
     });
 });
 
@@ -71,8 +76,7 @@ router.post("/", async (req, res, next) => {
     );
     res.status(201).json(createdCohort);
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: "error on the backend, see console" });
+    next(error);
   }
 });
 

@@ -45,6 +45,8 @@ app.use(cookieParser());
 // ROUTES - https://expressjs.com/en/starter/basic-routing.html
 
 app.use("/", require("./routes/index.routes"));
+require("./error-handling")(app);
+
 // Devs Team - Start working on the routes here:
 
 // ...

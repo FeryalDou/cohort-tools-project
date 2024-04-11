@@ -36,8 +36,7 @@ router.get("/", async (req, res) => {
     const allStudents = await Student.find({}).limit(limit).skip(skip);
     res.status(200).json(allStudents);
   } catch (error) {
-    console.log(error);
-    res.status(500).send("Error during GET/api/students");
+    next(error);
   }
 });
 
@@ -46,7 +45,7 @@ router.post("/", async (req, res, next) => {
     const createdStudent = await Student.create(req.body);
     res.status(201).json(createdStudent);
   } catch (error) {
-    res.status(500).send("Error creating new student");
+    next(error);
   }
 });
 
@@ -59,8 +58,7 @@ router.get("/:studentId", (req, res, next) => {
       res.json(oneStudent);
     })
     .catch((err) => {
-      console.error("error while retreiving students", err);
-      res.json({ error: "error on the backend, see console" });
+      next(error);
     });
 });
 
@@ -76,7 +74,7 @@ router.put("/:studentId", async (req, res, next) => {
     );
     res.status(200).json(updatedStudent);
   } catch (error) {
-    res.status(500).json({ message: "error" });
+    next(error);
   }
 });
 
@@ -87,7 +85,7 @@ router.delete("/:studentId", async (req, res, next) => {
     const updatedStudent = await Student.findOneAndDelete(req.params.studentId);
     res.status(204).send();
   } catch (error) {
-    res.status(500).json({ message: "error" });
+    next(error);
   }
 });
 
@@ -98,7 +96,7 @@ router.get("/cohort/:cohortId", async (req, res, next) => {
     const cohortStudents = await Student.find({ cohort: req.params.cohortId });
     res.status(200).json(cohortStudents);
   } catch (error) {
-    res.status(500).json({ error: "error on the backend, see console" });
+    next(error);
   }
 });
 module.exports = router;
