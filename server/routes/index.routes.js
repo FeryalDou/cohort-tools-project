@@ -8,4 +8,6 @@ router.use("/api/cohorts", require("./cohorts.routes"));
 
 router.use("/api/students", require("./students.routes"));
 
+router.use("/api/auth", require("./auth.routes"));
+
 module.exports = router;
