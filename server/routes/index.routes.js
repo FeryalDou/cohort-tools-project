@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const User = require("../models/User.model");
 
 router.get("/docs", (req, res) => {
   res.sendFile(__dirname + "/views/docs.html");
